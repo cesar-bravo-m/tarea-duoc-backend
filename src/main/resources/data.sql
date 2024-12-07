@@ -9,31 +9,31 @@ INSERT INTO especialidad (nombre) VALUES ('Ginecologia');
 
 -- Seed data for Funcionarios
 INSERT INTO funcionario (rut, nombres, apellidos, telefono, email, password, especialidad_id) 
-VALUES ('123456789', 'Juan', 'Perez', '+56912345678', 'juan.perez@hospital.cl', 'password123', 1);
+VALUES ('196450963', 'Juan', 'Perez', '+56912345678', 'juan.perez@hospital.cl', 'Abc123', 1);
 
 INSERT INTO funcionario (rut, nombres, apellidos, telefono, email, password, especialidad_id) 
-VALUES ('987654321', 'Maria', 'Gonzalez', '+56987654321', 'maria.gonzalez@hospital.cl', 'password456', 2);
+VALUES ('13538951k', 'Maria', 'Gonzalez', '+56987654321', 'maria.gonzalez@hospital.cl', 'Abc123', 2);
 
 INSERT INTO funcionario (rut, nombres, apellidos, telefono, email, password, especialidad_id) 
-VALUES ('111111111', 'Pedro', 'Rodriguez', '+56911111111', 'pedro.rodriguez@hospital.cl', 'password789', 3);
+VALUES ('145092035', 'Pedro', 'Rodriguez', '+56911111111', 'pedro.rodriguez@hospital.cl', 'Abc123', 3);
 
 INSERT INTO funcionario (rut, nombres, apellidos, telefono, email, password, especialidad_id) 
-VALUES ('222222222', 'Ana', 'Martinez', '+56922222222', 'ana.martinez@hospital.cl', 'passwordabc', 4);
+VALUES ('199072412', 'Ana', 'Martinez', '+56922222222', 'ana.martinez@hospital.cl', 'Abc123', 4);
 
 INSERT INTO funcionario (rut, nombres, apellidos, telefono, email, password, especialidad_id) 
-VALUES ('333333333', 'Carlos', 'Sanchez', '+56933333333', 'carlos.sanchez@hospital.cl', 'passworddef', 5); 
+VALUES ('151205682', 'Carlos', 'Sanchez', '+56933333333', 'carlos.sanchez@hospital.cl', 'Abc123', 5); 
 
 INSERT INTO paciente (rut, nombres, apellidos, telefono, email, fecha_nacimiento, genero, direccion) 
-VALUES ('444444444', 'Laura', 'Silva', '+56944444444', 'laura.silva@email.com', '1990-05-15', 'F', 'Av. Principal 123');
+VALUES ('111111111', 'Laura', 'Silva', '+56944444444', 'laura.silva@email.com', '1990-05-15', 'F', 'Av. Principal 123');
 
 INSERT INTO paciente (rut, nombres, apellidos, telefono, email, fecha_nacimiento, genero, direccion) 
-VALUES ('555555555', 'Diego', 'Torres', '+56955555555', 'diego.torres@email.com', '1985-08-22', 'M', 'Calle Central 456');
+VALUES ('116726459', 'Diego', 'Torres', '+56955555555', 'diego.torres@email.com', '1985-08-22', 'M', 'Calle Central 456');
 
 INSERT INTO paciente (rut, nombres, apellidos, telefono, email, fecha_nacimiento, genero, direccion) 
-VALUES ('666666666', 'Carmen', 'Lopez', '+56966666666', 'carmen.lopez@email.com', '1995-03-10', 'F', 'Pasaje Los Pinos 789');
+VALUES ('170401697', 'Carmen', 'Lopez', '+56966666666', 'carmen.lopez@email.com', '1995-03-10', 'F', 'Pasaje Los Pinos 789');
 
 INSERT INTO paciente (rut, nombres, apellidos, telefono, email, fecha_nacimiento, genero, direccion) 
-VALUES ('777777777', 'Roberto', 'Muñoz', '+56977777777', 'roberto.munoz@email.com', '1982-11-30', 'M', 'Av. Los Robles 321'); 
+VALUES ('171939747', 'Roberto', 'Muñoz', '+56977777777', 'roberto.munoz@email.com', '1982-11-30', 'M', 'Av. Los Robles 321'); 
 
 -- Seed data for SegmentoHorario
 INSERT INTO segmento_horario (nombre, fecha_hora_inicio, fecha_hora_fin, free, funcionario_id) 

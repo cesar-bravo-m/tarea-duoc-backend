@@ -19,6 +19,7 @@ import com.example.hospitalscheduler.dto.LoginResponse;
 import com.example.hospitalscheduler.model.Funcionario;
 import com.example.hospitalscheduler.repository.EspecialidadRepository;
 import com.example.hospitalscheduler.repository.FuncionarioRepository;
+import com.example.hospitalscheduler.repository.RolRepository;
 
 @RestController
 @RequestMapping("/api/funcionarios")
@@ -30,9 +31,15 @@ public class FuncionarioController {
     @Autowired
     private EspecialidadRepository especialidadRepository;
 
+    @Autowired
+    private RolRepository rolRepository;
+
     // Create
     @PostMapping
     public ResponseEntity<Funcionario> createFuncionario(@RequestBody Funcionario funcionario) {
+        funcionario.setId(null);  // Ensure we're creating a new entity
+        
+        // Handle especialidad if provided
         if (funcionario.getEspecialidad() != null && funcionario.getEspecialidad().getId() != null) {
             return especialidadRepository.findById(funcionario.getEspecialidad().getId())
                 .map(especialidad -> {
@@ -104,7 +111,7 @@ public class FuncionarioController {
     public ResponseEntity<Funcionario> getFuncionarioByRut(@PathVariable String rut) {
         Funcionario funcionario = funcionarioRepository.findByRut(rut);
         if (funcionario == null) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(null);
         }
         return ResponseEntity.ok(funcionario);
     }

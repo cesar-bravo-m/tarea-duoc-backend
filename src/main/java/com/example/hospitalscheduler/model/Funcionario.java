@@ -1,5 +1,6 @@
 package com.example.hospitalscheduler.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -34,7 +35,7 @@ public class Funcionario {
     
     @JsonIgnore
     @OneToMany(mappedBy = "funcionario")
-    private Set<SegmentoHorario> segmentosHorarios;
+    private Set<SegmentoHorario> segmentosHorarios = new HashSet<>();
     
     @ManyToMany
     @JoinTable(
@@ -42,14 +43,17 @@ public class Funcionario {
         joinColumns = @JoinColumn(name = "funcionario_id"),
         inverseJoinColumns = @JoinColumn(name = "rol_id")
     )
-    private Set<Rol> roles;
+    private Set<Rol> roles = new HashSet<>();
     
     // Default constructor
     public Funcionario() {
+        this.roles = new HashSet<>();
+        this.segmentosHorarios = new HashSet<>();
     }
     
     // Constructor with fields
     public Funcionario(String rut, String nombres, String apellidos, String telefono, String email, String password) {
+        this();  // Call default constructor to initialize sets
         this.rut = rut;
         this.nombres = nombres;
         this.apellidos = apellidos;

@@ -1,0 +1,76 @@
+package com.example.hospitalscheduler.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.hospitalscheduler.model.Paciente;
+import com.example.hospitalscheduler.repository.PacienteRepository;
+
+@RestController
+@RequestMapping("/api/pacientes")
+public class PacienteController {
+
+    @Autowired
+    private PacienteRepository pacienteRepository;
+
+    // Create
+    @PostMapping
+    public ResponseEntity<Paciente> createPaciente(@RequestBody Paciente paciente) {
+        Paciente savedPaciente = pacienteRepository.save(paciente);
+        return ResponseEntity.ok(savedPaciente);
+    }
+
+    // Read all
+    @GetMapping
+    public List<Paciente> getAllPacientes() {
+        return pacienteRepository.findAll();
+    }
+
+    // Read one
+    @GetMapping("/{id}")
+    public ResponseEntity<Paciente> getPacienteById(@PathVariable Long id) {
+        return pacienteRepository.findById(id)
+            .map(ResponseEntity::ok)
+            .orElse(ResponseEntity.notFound().build());
+    }
+
+    // Update
+    @PutMapping("/{id}")
+    public ResponseEntity<Paciente> updatePaciente(@PathVariable Long id, @RequestBody Paciente pacienteDetails) {
+        return pacienteRepository.findById(id)
+            .map(paciente -> {
+                paciente.setRut(pacienteDetails.getRut());
+                paciente.setNombres(pacienteDetails.getNombres());
+                paciente.setApellidos(pacienteDetails.getApellidos());
+                paciente.setTelefono(pacienteDetails.getTelefono());
+                paciente.setEmail(pacienteDetails.getEmail());
+                paciente.setFechaNacimiento(pacienteDetails.getFechaNacimiento());
+                paciente.setGenero(pacienteDetails.getGenero());
+                paciente.setDireccion(pacienteDetails.getDireccion());
+                
+                return ResponseEntity.ok(pacienteRepository.save(paciente));
+            })
+            .orElse(ResponseEntity.notFound().build());
+    }
+
+    // Delete
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletePaciente(@PathVariable Long id) {
+        return pacienteRepository.findById(id)
+            .map(paciente -> {
+                pacienteRepository.delete(paciente);
+                return ResponseEntity.ok().build();
+            })
+            .orElse(ResponseEntity.notFound().build());
+    }
+} 

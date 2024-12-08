@@ -30,6 +30,7 @@ public class SegmentoHorarioController {
     // Create
     @PostMapping
     public ResponseEntity<SegmentoHorario> createSegmentoHorario(@RequestBody SegmentoHorario segmentoHorario) {
+        segmentoHorario.setId(null);
         if (segmentoHorario.getFuncionario() != null && segmentoHorario.getFuncionario().getId() != null) {
             return funcionarioRepository.findById(segmentoHorario.getFuncionario().getId())
                 .map(funcionario -> {
@@ -93,4 +94,5 @@ public class SegmentoHorarioController {
             })
             .orElse(ResponseEntity.notFound().build());
     }
+
 } 

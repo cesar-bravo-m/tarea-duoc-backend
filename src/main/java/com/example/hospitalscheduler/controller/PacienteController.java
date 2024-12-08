@@ -26,6 +26,8 @@ public class PacienteController {
     // Create
     @PostMapping
     public ResponseEntity<Paciente> createPaciente(@RequestBody Paciente paciente) {
+        paciente.setId(null);
+
         Paciente savedPaciente = pacienteRepository.save(paciente);
         return ResponseEntity.ok(savedPaciente);
     }
@@ -72,5 +74,15 @@ public class PacienteController {
                 return ResponseEntity.ok().build();
             })
             .orElse(ResponseEntity.notFound().build());
+    }
+
+    // Add this method to the existing controller class
+    @GetMapping("/rut/{rut}")
+    public ResponseEntity<Paciente> getPacienteByRut(@PathVariable String rut) {
+        Paciente paciente = pacienteRepository.findByRut(rut);
+        if (paciente == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(paciente);
     }
 } 

@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.hospitalscheduler.dto.LoginRequest;
 import com.example.hospitalscheduler.dto.LoginResponse;
 import com.example.hospitalscheduler.model.Funcionario;
+import com.example.hospitalscheduler.model.SegmentoHorario;
 import com.example.hospitalscheduler.repository.EspecialidadRepository;
 import com.example.hospitalscheduler.repository.FuncionarioRepository;
 import com.example.hospitalscheduler.repository.RolRepository;
+import com.example.hospitalscheduler.repository.SegmentoHorarioRepository;
 
 @RestController
 @RequestMapping("/api/funcionarios")
@@ -30,6 +32,9 @@ public class FuncionarioController {
     
     @Autowired
     private EspecialidadRepository especialidadRepository;
+
+    @Autowired
+    private SegmentoHorarioRepository segmentoHorarioRepository;
 
     @Autowired
     private RolRepository rolRepository;
@@ -140,5 +145,18 @@ public class FuncionarioController {
         );
         
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{funcionarioId}/segmentos")
+    public ResponseEntity<List<SegmentoHorario>> getSegmentosHorarioByFuncionarioId(
+            @PathVariable Long funcionarioId) {
+        
+        // Check if funcionario exists
+        if (!funcionarioRepository.existsById(funcionarioId)) {
+            return ResponseEntity.notFound().build();
+        }
+        
+        List<SegmentoHorario> segmentos = segmentoHorarioRepository.findByFuncionarioId(funcionarioId);
+        return ResponseEntity.ok(segmentos);
     }
 } 

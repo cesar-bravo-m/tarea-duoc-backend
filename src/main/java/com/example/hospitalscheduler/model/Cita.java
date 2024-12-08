@@ -5,7 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Cita {
@@ -14,11 +14,11 @@ public class Cita {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
     
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "segmento_horario_id")
     private SegmentoHorario segmentoHorario;
 

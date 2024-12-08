@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.hospitalscheduler.dto.LoginRequest;
 import com.example.hospitalscheduler.dto.LoginResponse;
+import com.example.hospitalscheduler.dto.PasswordChangeRequest;
 import com.example.hospitalscheduler.model.Funcionario;
 import com.example.hospitalscheduler.model.SegmentoHorario;
 import com.example.hospitalscheduler.repository.EspecialidadRepository;
@@ -83,7 +84,9 @@ public class FuncionarioController {
                 funcionario.setApellidos(funcionarioDetails.getApellidos());
                 funcionario.setTelefono(funcionarioDetails.getTelefono());
                 funcionario.setEmail(funcionarioDetails.getEmail());
-                funcionario.setPassword(funcionarioDetails.getPassword());
+                if (funcionarioDetails.getPassword() != null && !funcionarioDetails.getPassword().isEmpty()) {
+                    funcionario.setPassword(funcionarioDetails.getPassword());
+                }
                 
                 // Update especialidad if provided
                 if (funcionarioDetails.getEspecialidad() != null && funcionarioDetails.getEspecialidad().getId() != null) {
@@ -158,5 +161,48 @@ public class FuncionarioController {
         
         List<SegmentoHorario> segmentos = segmentoHorarioRepository.findByFuncionarioId(funcionarioId);
         return ResponseEntity.ok(segmentos);
+    }
+
+    // Add this method to the existing controller class
+    @GetMapping("/{funcionarioId}/roles/{nombreRol}")
+    public ResponseEntity<Boolean> funcionarioHasRole(
+            @PathVariable Long funcionarioId,
+            @PathVariable String nombreRol) {
+        
+        // Find funcionario
+        Funcionario funcionario = funcionarioRepository.findById(funcionarioId)
+            .orElse(null);
+        if (funcionario == null) {
+            return ResponseEntity.notFound().build();
+        }
+        
+        // Check if funcionario has the role
+        boolean hasRole = funcionario.getRoles().stream()
+            .anyMatch(rol -> rol.getNombre().equals(nombreRol));
+        
+        return ResponseEntity.ok(hasRole);
+    }
+
+    // Add this method to the existing controller class
+    @PutMapping("/{funcionarioId}/password")
+    public ResponseEntity<?> changePassword(
+            @PathVariable Long funcionarioId,
+            @RequestBody PasswordChangeRequest passwordRequest) {
+        
+        // Find funcionario
+        Funcionario funcionario = funcionarioRepository.findById(funcionarioId)
+            .orElse(null);
+        if (funcionario == null) {
+            return ResponseEntity.notFound().build();
+        }
+        System.out.println("passwordRequest.getPassword()");
+        System.out.println(passwordRequest.getPassword());
+        
+        // Update password
+        funcionario.setPassword(passwordRequest.getPassword());
+        funcionarioRepository.save(funcionario);
+        
+        return ResponseEntity.ok()
+            .body("Password updated successfully");
     }
 } 

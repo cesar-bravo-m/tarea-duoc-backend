@@ -49,20 +49,25 @@ public class PacienteController {
     // Update
     @PutMapping("/{id}")
     public ResponseEntity<Paciente> updatePaciente(@PathVariable Long id, @RequestBody Paciente pacienteDetails) {
-        return pacienteRepository.findById(id)
-            .map(paciente -> {
-                paciente.setRut(pacienteDetails.getRut());
-                paciente.setNombres(pacienteDetails.getNombres());
-                paciente.setApellidos(pacienteDetails.getApellidos());
-                paciente.setTelefono(pacienteDetails.getTelefono());
-                paciente.setEmail(pacienteDetails.getEmail());
-                paciente.setFechaNacimiento(pacienteDetails.getFechaNacimiento());
-                paciente.setGenero(pacienteDetails.getGenero());
-                paciente.setDireccion(pacienteDetails.getDireccion());
-                
-                return ResponseEntity.ok(pacienteRepository.save(paciente));
-            })
-            .orElse(ResponseEntity.notFound().build());
+        // Find paciente
+        Paciente paciente = pacienteRepository.findById(id).orElse(null);
+        if (paciente == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Update fields
+        paciente.setRut(pacienteDetails.getRut());
+        paciente.setNombres(pacienteDetails.getNombres());
+        paciente.setApellidos(pacienteDetails.getApellidos());
+        paciente.setTelefono(pacienteDetails.getTelefono());
+        paciente.setEmail(pacienteDetails.getEmail());
+        paciente.setFechaNacimiento(pacienteDetails.getFechaNacimiento());
+        paciente.setGenero(pacienteDetails.getGenero());
+        paciente.setDireccion(pacienteDetails.getDireccion());
+        
+        // Save and return
+        Paciente updatedPaciente = pacienteRepository.save(paciente);
+        return ResponseEntity.ok(updatedPaciente);
     }
 
     // Delete

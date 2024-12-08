@@ -35,32 +35,15 @@ VALUES ('170401697', 'Carmen', 'Lopez', '+56966666666', 'carmen.lopez@email.com'
 INSERT INTO paciente (rut, nombres, apellidos, telefono, email, fecha_nacimiento, genero, direccion) 
 VALUES ('171939747', 'Roberto', 'Muñoz', '+56977777777', 'roberto.munoz@email.com', '1982-11-30', 'M', 'Av. Los Robles 321'); 
 
--- Seed data for SegmentoHorario
-INSERT INTO segmento_horario (nombre, fecha_hora_inicio, fecha_hora_fin, free, funcionario_id) 
-VALUES ('Consulta 1', '2024-03-20 09:00:00', '2024-03-20 09:30:00', true, 1);
-
-INSERT INTO segmento_horario (nombre, fecha_hora_inicio, fecha_hora_fin, free, funcionario_id) 
-VALUES ('Consulta 2', '2024-03-20 09:30:00', '2024-03-20 10:00:00', true, 1);
-
-INSERT INTO segmento_horario (nombre, fecha_hora_inicio, fecha_hora_fin, free, funcionario_id) 
-VALUES ('Consulta Tarde', '2024-03-20 14:00:00', '2024-03-20 14:30:00', true, 2);
-
-INSERT INTO segmento_horario (nombre, fecha_hora_inicio, fecha_hora_fin, free, funcionario_id) 
-VALUES ('Consulta Tarde', '2024-03-20 14:30:00', '2024-03-20 15:00:00', true, 2); 
-
 -- Seed data for Rol
 INSERT INTO rol (nombre) VALUES ('USA_CITAS');
 INSERT INTO rol (nombre) VALUES ('USA_AGENDA');
 INSERT INTO rol (nombre) VALUES ('USA_INSCRIPCION');
 
 -- Assign roles to funcionarios
-INSERT INTO funcionario_rol (funcionario_id, rol_id) VALUES (1, 1);
-INSERT INTO funcionario_rol (funcionario_id, rol_id) VALUES (1, 2);
-INSERT INTO funcionario_rol (funcionario_id, rol_id) VALUES (2, 2);
-INSERT INTO funcionario_rol (funcionario_id, rol_id) VALUES (3, 3);
-INSERT INTO funcionario_rol (funcionario_id, rol_id) VALUES (4, 1);
-INSERT INTO funcionario_rol (funcionario_id, rol_id) VALUES (5, 2);
+INSERT INTO funcionario_rol (funcionario_id, rol_id) VALUES (1, 1); -- USA_CITAS
+INSERT INTO funcionario_rol (funcionario_id, rol_id) VALUES (1, 2); -- USA_AGENDA
+INSERT INTO funcionario_rol (funcionario_id, rol_id) VALUES (1, 3); -- USA_INSCRIPCION
 
--- Seed data for Cita
-INSERT INTO cita (paciente_id, segmento_horario_id) VALUES (1, 1);
-INSERT INTO cita (paciente_id, segmento_horario_id) VALUES (2, 3);
+INSERT INTO funcionario_rol (funcionario_id, rol_id) VALUES (2, 2); -- USA_AGENDA
+INSERT INTO funcionario_rol (funcionario_id, rol_id) VALUES (2, 3); -- USA_INSCRIPCION
